@@ -1,0 +1,10 @@
+build:
+  image: docker:latest
+  stage: build
+  services:
+    - docker:dind
+  before_script:
+    - docker login  -u $DOCKER_USERNAME -p $DOCKER_PASSWORD https://index.docker.io/v1/
+  script:
+    - docker build -t strongpapazola/microservice:$DOCKER_IMAGE .
+    - docker push strongpapazola/microservice:$DOCKER_IMAGE
